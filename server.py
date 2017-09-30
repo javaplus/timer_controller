@@ -1,7 +1,6 @@
 from flask import Flask, request, json
 import logging
 import sys
-import timer
 import paho.mqtt.client as mqtt
 
 client = mqtt.Client()
