@@ -16,7 +16,7 @@ def api_pitimer():
 
 @app.route('/stop')
 def api_stop():
-    timer.stopCountDown()
+    
     return 'stopping'
 
 @app.route('/timer', methods = ['POST'])
