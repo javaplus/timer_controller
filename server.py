@@ -2,6 +2,7 @@ from flask import Flask, request, json
 import logging
 import sys
 import paho.mqtt.client as mqtt
+import time
 
 client = mqtt.Client()
 
@@ -24,9 +25,15 @@ def api_timer():
     logging.basicConfig(level=logging.DEBUG)
     logging.info('Data=' + request.data)
     logging.info(request.json["minutes"])
+    minutes = int(request.json["minutes"])
+    # convert minutes to the time in the future when the 
+    # timer should end. This way it can calculate num of minutes
+    sec = minutes * 60 #number of seconds
+    futureTimeInSecs = time.time() + sec
     mqttc = mqtt.Client("timer_pub")
     mqttc.connect("localhost", 1883)
-    mqttc.publish("timer/timer", request.data,qos=0,retain=True)
+    # retain messages so on restart clients get last message
+    mqttc.publish("timer/timer", futureTimeInSecs,qos=0,retain=True) 
     mqttc.loop(2) #timeout = 2s
 
     #timer.countDown(int(request.json["minutes"])) 
