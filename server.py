@@ -30,10 +30,15 @@ def api_timer():
     # timer should end. This way it can calculate num of minutes
     sec = minutes * 60 #number of seconds
     futureTimeInSecs = time.time() + sec
+
+    requestData = {}
+    requestData["id"] = "123"
+    requestData["timeToEnd"] = str(futureTimeInSecs)
+    
     mqttc = mqtt.Client("timer_pub")
     mqttc.connect("localhost", 1883)
     # retain messages so on restart clients get last message
-    mqttc.publish("timer/timer", futureTimeInSecs,qos=0,retain=True) 
+    mqttc.publish("timer/timer", json.dumps(requestData),qos=0,retain=True) 
     mqttc.loop(2) #timeout = 2s
 
     #timer.countDown(int(request.json["minutes"])) 
