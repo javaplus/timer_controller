@@ -26,7 +26,7 @@ def api_timer():
     logging.info(request.json["minutes"])
     mqttc = mqtt.Client("timer_pub")
     mqttc.connect("localhost", 1883)
-    mqttc.publish("timer/timer", request.data,,qos=0,retain=True)
+    mqttc.publish("timer/timer", request.data,qos=0,retain=True)
     mqttc.loop(2) #timeout = 2s
 
     #timer.countDown(int(request.json["minutes"])) 
