@@ -32,7 +32,6 @@ def api_timer():
     futureTimeInSecs = time.time() + sec
 
     requestData = {}
-    requestData["id"] = "123"
     requestData["timeToEnd"] = str(futureTimeInSecs)
     #pass speaktime and interval time 
     requestData["speaktime"] = request.json["speaktime"]
