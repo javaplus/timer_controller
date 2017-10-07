@@ -34,6 +34,9 @@ def api_timer():
     requestData = {}
     requestData["id"] = "123"
     requestData["timeToEnd"] = str(futureTimeInSecs)
+    #pass speaktime and interval time 
+    requestData["speaktime"] = request.json["speaktime"]
+    requestData["speakinterval"] = request.json["speakinterval"]
     
     mqttc = mqtt.Client("timer_pub")
     mqttc.connect("localhost", 1883)
@@ -45,6 +48,10 @@ def api_timer():
 
 
     return 'Processing Timer'
+
+
+
+
 
 if __name__ == '__main__':
     pitimer = logging.getLogger("flask.app")
