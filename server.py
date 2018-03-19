@@ -48,6 +48,18 @@ def api_timer():
 
     return 'Processing Timer'
 
+@app.route('/say', methods = ['POST'])
+def say():
+    logging.basicConfig(level=logging.DEBUG)
+    logging.info('Data=' + request.data)
+
+    mqttc = mqtt.Client("speech_pub")
+    mqttc.connect("localhost", 1883)
+    # retain messages so on restart clients get last message
+    mqttc.publish("speech/talk", request.data,qos=0,retain=False)
+    mqttc.loop(2) #timeout = 2s
+
+    return 'Processing Phrase'
 
 
 
