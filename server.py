@@ -3,6 +3,7 @@ import logging
 import sys
 import paho.mqtt.client as mqtt
 import time
+from flask_cors import CORS
 
 client = mqtt.Client()
 
@@ -10,6 +11,7 @@ client = mqtt.Client()
 
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def api_pitimer():
